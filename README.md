@@ -25,9 +25,9 @@ $ ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
 A [image](https://hub.docker.com/r/linuxsolutions/server-web-nginx-php-fpm) ready to build your web server with Nginx and PHP-FPM.
 
-* [Nginx](https://www.nginx.com/) - Servidor leve de HTTP!
-* [PHP 7.4.11](https://www.php.net/) - Linguagem core do WordPress
-* [Composer](https://getcomposer.org/doc/00-intro.md) - Gerenciador de Pacotes
+* [Nginx](https://www.nginx.com/) - Web server!
+* [PHP 7.4.11](https://www.php.net/) - Wordpress core Language
+* [Composer](https://getcomposer.org/doc/00-intro.md) - Package Management
 * [WP-CLI](https://developer.wordpress.org/cli/commands/) - WordPress Command Line
 
 ## Configuration
