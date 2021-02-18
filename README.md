@@ -9,7 +9,7 @@ The project is a webserver based on php using nginx, running in a docker instanc
 - [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
 
-     - ### Installation
+     - ### Setup
 ##### Docker
 ```sh
 $ yum -y update && yum -y install curl && curl -fsSL https://get.docker.com | bash
@@ -30,22 +30,22 @@ A [image](https://hub.docker.com/r/linuxsolutions/server-web-nginx-php-fpm) read
 * [Composer](https://getcomposer.org/doc/00-intro.md) - Package Management
 * [WP-CLI](https://developer.wordpress.org/cli/commands/) - WordPress Command Line
 
-## Configuration
+## Settings
 
 The Directory `config` have all config files for Nginx
 
 | File | About |
 | ------ | ------ |
-| general.conf | General Wordpress configurations for control assets, robots and fonts. |
-| nginx.conf | General Nginx configurations | 
+| general.conf | General Wordpress Settings for control assets, robots and fonts. |
+| nginx.conf | General Nginx Settings | 
 | php.conf | PHP upstream file  |
 | security.conf | Wordpress security file |
-| webp.conf | Configuration file to allow changing the image format to WEBP |
-| wordpress.conf | Configuration file for Wordpress Applications |
+| webp.conf | Settings file to allow changing the image format to WEBP |
+| wordpress.conf | Settings file for Wordpress Applications |
 
 - ##### infra-design/nginx/conf.d/
 
-The directory `nginx/sites-enabled`  have all configuration files for sites, where define the root path, includes etc. For include new sites on server, please use the pattern below:
+The directory `nginx/sites-enabled`  have all Settings files for sites, where define the root path, includes etc. For include new sites on server, please use the pattern below:
 
 `new-site.com.conf`
 ```conf
