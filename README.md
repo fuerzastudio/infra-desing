@@ -43,7 +43,7 @@ The Directory `config` have all config files for Nginx
 | webp.conf | Configuration file to allow changing the image format to WEBP |
 | wordpress.conf | Configuration file for Wordpress Applications |
 
-- ##### nginx/sites-enabled
+- ##### infra-design/nginx/conf.d/
 
 The directory `nginx/sites-enabled`  have all configuration files for sites, where define the root path, includes etc. For include new sites on server, please use the pattern below:
 
