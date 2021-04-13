@@ -10,61 +10,30 @@ services:
     volumes:
       - ./php/php.ini:/etc/php/7.4/fpm/php.ini
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
-      - ./config:/etc/nginx/common
-      - ./nginx/htpasswd:/etc/nginx/htpasswd
+      - ./nginx/sites-enabled:/etc/nginx/sites-enabled
+      - ./nginx/common:/etc/nginx/common
+      - ./nginx/htpasswd:/etc/nginx/htpasswd # user-project | 1gZSxWt2etUNTG6QKV6n
+      - ./cache:/var/cache/nginx/fastcgi_temp/cache
       - /var/www:/var/www
     networks: 
       dev:
         ipv4_address: 171.28.5.10
-  mariadb:
-    image: mariadb:10.4.12
-    container_name: databases
+  server-database:
+    image: mariadb:10.5.9
+    container_name: mariadb
     restart: always
     volumes:
-      - ./databases/data-mariadb:/var/lib/mysql
+      - ./data:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=root_password
-      - MYSQL_USER=wordpress_usr
-      - MYSQL_PASSWORD=wordpress_password
+      - MYSQL_ROOT_PASSWORD=passroot
+      - MYSQL_USER=example_usr              
+      - MYSQL_PASSWORD=example_pass
+      - MYSQL_DATABASE=example_db               
     ports:
       - '3306:3306'
-    depends_on:
-      - webserver
     networks: 
       dev:
         ipv4_address: 171.28.5.11
-  redis:
-    image: redis:6.0.9-alpine
-    container_name: redis
-    restart: always
-    volumes:
-      - ./databases/redis:/data
-    ports:
-      - '6379:6379'
-    depends_on:
-      - webserver
-    networks: 
-      dev:
-        ipv4_address: 171.28.5.12
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:5.0.2
-    container_name: phpmyadmin
-    environment:
-      - PMA_HOSTS=171.28.5.11
-      - UPLOAD_LIMIT=20480000K
-    restart: always
-    links:
-      - mariadb
-    depends_on:
-      - mariadb
-    volumes:
-      - /sessions
-    ports:
-      - '8080:80'
-    networks: 
-      dev:
-        ipv4_address: 171.28.5.20
 
 networks: 
   dev:
