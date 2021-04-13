@@ -1,64 +1,68 @@
-# Infra Default
+# Fuerza Studio WebServer
+[![N|Solid](https://www.fuerzastudio.com.br/wp-content/themes/fuerza/resources/img/logo.png)](https://www.fuerzastudio.com.br/)
+## _NGINX + PHP Server  (using docker)_
 
-### New Features!
+The project is a webserver based on php using nginx, running in a docker instance with our image.
 
-  - [Docker](https://www.docker.com/)
-  - [Docker Compose](https://docs.docker.com/compose/)
+## Requirements
 
-### Tecnologias
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
 
-Dillinger uses a number of open source projects to work properly:
-
-* [Nginx](https://www.nginx.com/) - Servidor leve de HTTP!
-* [PHP 7.4.11](https://www.php.net/) - Linguagem core do WordPress
-
-### Instalação
-
-#### Docker
-
+     - ### Setup
+##### Docker
 ```sh
 $ yum -y update && yum -y install curl && curl -fsSL https://get.docker.com | bash
 ```
-
-#### Docker Compose
-
+##### Docker Compose
 ```sh
 $ curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 $ chmod +x /usr/local/bin/docker-compose
 $ ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 ```
 
-### Serviços
+### Docker image
 
-##### Config
+A [image](https://hub.docker.com/r/linuxsolutions/server-web-nginx-php-fpm) ready to build your web server with Nginx and PHP-FPM.
 
-Diretório `config` contém os arquivos de configurações para Nginx correspondendo a aplicação.
-* `general.conf` Configurações gerais de controle do WordPress para os assest, robots e fonts.
-* `nginx.conf` Configurações gerais para o Nginx.
-* `php.conf` Arquivo para fazer o upstream com PHP.
-* `security.conf` Arquivo com ciretérios de segurança para o WordPress.
-* `webp.conf` Arquivo de confiração para permitir alterar o formato de imagem desenvolvido pelo Google que promete reduzir o tamanho dos arquivos.
-* `wordpress.conf` Arquivo de configuração focado para aplicações baseadas em WordPress.
+* [Nginx](https://www.nginx.com/) - Web server!
+* [PHP 7.4.11](https://www.php.net/) - Wordpress core Language
+* [Composer](https://getcomposer.org/doc/00-intro.md) - Package Management
+* [WP-CLI](https://developer.wordpress.org/cli/commands/) - WordPress Command Line
 
-##### nginx/sites-enabled
+## Settings
 
-Diretório `nginx/sites-enabled` contém o(s) arquivo(s) do bloco de configuração do site, define-se por exemplo o root do site, includes com os arquivos de configurações. Havendo necessidade de inserção de mais sites no servidor, pode-se basear no arquivo novamarca.lasalle.edu.br.conf ou seguir o exemplo abaixo;
-`novo-site.com.conf`
+The Directory `config` have all config files for Nginx
+
+| File | About |
+| ------ | ------ |
+| general.conf | General Wordpress Settings for control assets, robots and fonts. |
+| nginx.conf | General Nginx Settings | 
+| php.conf | PHP upstream file  |
+| security.conf | Wordpress security file |
+| webp.conf | Settings file to allow changing the image format to WEBP |
+| wordpress.conf | Settings file for Wordpress Applications |
+
+- ##### infra-design/nginx/conf.d/
+
+The directory `nginx/sites-enabled`  have all Settings files for sites, where define the root path, includes etc. For include new sites on server, please use the pattern below:
+
+`new-site.com.conf`
 ```conf
 server {
     listen   80;
     listen   [::]:80;
-    server_name novo-site.com;
+    server_name new-site.com;
     
-    return 301 https://novo-site.com$request_uri;
+    return 301 https://new-site.com$request_uri;
 }
 server {
     listen   443 ssl;
     listen   [::]:443 ssl;
-    server_name novo-site.com;
+    server_name new-site.com;
     
-    ssl_certificate     novo-site.com.chained.crt;
-    ssl_certificate_key novo-site.com.key;
+    ssl_certificate     new-site.com.chained.crt;
+    ssl_certificate_key new-site.com.key;
     
     set $base /var/www/novo-site.com;
 	root $base/htdocs;
@@ -85,14 +89,22 @@ server {
 
 }
 ```
-##### PHP
-Diretório `php` contém o arquivo `php.ini` para manipulação das configurações do PHP.
 
-### Subindo o serviço
+- ##### PHP
+The directory `php` contains the archieve `php.ini` for change PHP configuration.
+
+
+## Running
 
 ```sh
-$ cd /root/infra-novamarca && docker-compose up -d --build
+$ cd /path/infra-design && docker-compose up -d --build
 ```
-* O nome do container é `server`.
+* Container named: `server`.
 
-Detalhes sobre a imagem baseada é encontrada [aqui](https://hub.docker.com/r/fuerzastudio/nginx-php-fpm) 
+> Note: Verify the deployment by navigating to your server address in
+your preferred browser.
+
+```sh
+127.0.0.1
+```
+
