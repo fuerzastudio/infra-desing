@@ -8,7 +8,7 @@ server {
 
   index index.php index.html index.htm;
 
-  include common/php.conf;
+  include common/wpfc-php.conf;
   include common/locations.conf;
   include common/wpcommon.conf;  
 }
