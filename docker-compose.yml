@@ -12,6 +12,8 @@ services:
       - ./nginx:/etc/nginx
       - ./cache:/var/run/nginx-cache
       - /var/www:/var/www
+      - /data/letsencrypt:/data/letsencrypt
+      - /etc/letsencrypt:/etc/letsencrypt
     networks: 
       dev:
         ipv4_address: 171.28.5.10

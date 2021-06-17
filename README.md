@@ -91,3 +91,64 @@ your preferred browser.
 ```sh
 127.0.0.1
 ```
+
+## Configure SSL
+
+Execute:
+
+```sh
+docker run -it --rm --name certbot \
+  -v /etc/letsencrypt:/etc/letsencrypt \
+  -v /data/letsencrypt:/data/letsencrypt \
+  certbot/certbot \ 
+  certonly \
+  --webroot --webroot-path=/data/letsencrypt \
+  --email devops@fuerzastudio.com.br \
+  --agree-tos --no-eff-email \
+  --force-renewal \
+  -d example.com
+```
+
+Edit:
+
+`example.com`
+
+```conf
+server {
+  listen 80;
+  listen [::]:80 http2;
+  server_name example.com;
+  return 301 https://$host$request_uri;
+}
+
+server {
+  listen 443 ssl http2;
+  listen [::]:443 ssl http2;
+
+  ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;
+  
+  server_name example.com;
+
+  set $base /var/www/example.com;
+	root $base/htdocs;
+
+  index index.php index.html index.htm;
+
+  include common/wpfc-php.conf; #Cache FastCGI
+  include common/locations.conf;
+  include common/wpcommon.conf;  
+}
+```
+
+Configure Cron renew:
+
+Execute:
+
+```sh
+$ crontab -e
+```
+
+```sh
+0 0 */15 * * docker run -t --rm -v /etc/letsencrypt:/etc/letsencrypt -v /data/letsencrypt:/data/letsencrypt -v /var/log/letsencrypt:/var/log/letsencrypt certbot/certbot renew --webroot --webroot-path=/data/letsencrypt && docker kill -s HUP server >/dev/null 2>&1
+```
