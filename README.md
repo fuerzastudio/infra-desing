@@ -141,5 +141,5 @@ $ crontab -e
 ```
 
 ```sh
-0 0 */15 * * docker run -t --rm -v /etc/letsencrypt:/etc/letsencrypt -v /data/letsencrypt:/data/letsencrypt -v /var/log/letsencrypt:/var/log/letsencrypt certbot/certbot renew --webroot --webroot-path=/data/letsencrypt && docker kill -s HUP server >/dev/null 2>&1
+0 0 */15 * * docker-compose -f /root/infra-design/docker-compose-ssl.yml up && docker kill -s HUP server >/dev/null 2>&1
 ```

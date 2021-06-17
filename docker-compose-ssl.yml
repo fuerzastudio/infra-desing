@@ -7,4 +7,4 @@ services:
       - /var/www:/var/www
       - /data/letsencrypt:/data/letsencrypt
       - /etc/letsencrypt:/etc/letsencrypt
-    command: certonly --webroot --webroot-path=/data/letsencrypt --email devops@fuerzastudio.com.br --agree-tos --no-eff-email --staging -d example.com  -d www.example.com
+    command: certonly --webroot --webroot-path=/data/letsencrypt --email devops@fuerzastudio.com.br --agree-tos --no-eff-email --force-renewal -d example.com  -d www.example.com
