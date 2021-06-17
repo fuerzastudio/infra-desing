@@ -97,16 +97,7 @@ your preferred browser.
 Execute:
 
 ```sh
-docker run -it --rm --name certbot \
-  -v /etc/letsencrypt:/etc/letsencrypt \
-  -v /data/letsencrypt:/data/letsencrypt \
-  certbot/certbot \ 
-  certonly \
-  --webroot --webroot-path=/data/letsencrypt \
-  --email devops@fuerzastudio.com.br \
-  --agree-tos --no-eff-email \
-  --force-renewal \
-  -d example.com
+docker-compose -f docker-compose-ssl.yml up
 ```
 
 Edit:
